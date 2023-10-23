@@ -20,7 +20,7 @@ public class JdbcSiteDao implements SiteDao {
     @Override
     public List<Site> getSitesWithRVAccessByParkId(int parkId) {
         List<Site> sites = new ArrayList<>();
-        String sql = "SELECT * FROM site WHERE campground_id IN (SELECT campground_id FROM campground WHERE park_id = ?) AND accessibility = true ";
+        String sql = "SELECT * FROM site WHERE campground_id IN (SELECT campground_id FROM campground WHERE park_id = ?) AND max_rv_length > 0 ";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, parkId);
 
         while (result.next()) {
