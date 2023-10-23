@@ -6,7 +6,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class JdbcCampgroundDaoTests extends BaseDaoTests {
 
@@ -26,7 +28,12 @@ public class JdbcCampgroundDaoTests extends BaseDaoTests {
 
     @Test
     public void getCampgroundsByParkId_Should_Return_All_Campgrounds_For_Park() {
-        Assert.fail();
+        List<Campground> campgrounds = dao.getCampgroundsByParkId(1);
+        assertNotNull(campgrounds);
+        assertTrue(!campgrounds.isEmpty());
+
+        assertEquals("Incorrect number of campgrounds", 1, campgrounds.size());
+
     }
 
 }

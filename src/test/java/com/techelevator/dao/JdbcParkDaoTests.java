@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static org.junit.Assert.*;
+
 public class JdbcParkDaoTests extends BaseDaoTests {
 
     private ParkDao dao;
@@ -19,7 +21,12 @@ public class JdbcParkDaoTests extends BaseDaoTests {
 
     @Test
     public void getParks_Should_Return_All_Parks() {
-        Assert.fail();
+        List <Park> parks = dao.getParks();
+        assertNotNull(parks);
+        assertTrue(!parks.isEmpty());
+
+
+        assertEquals("Incorrect number of campgrounds", 2, parks.size());
     }
 
 }
