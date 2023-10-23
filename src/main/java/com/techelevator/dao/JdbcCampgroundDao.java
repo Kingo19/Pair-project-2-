@@ -1,6 +1,8 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Campground;
+import com.techelevator.model.Park;
+import com.techelevator.model.Reservation;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
@@ -28,6 +30,10 @@ public class JdbcCampgroundDao implements CampgroundDao {
         } else  {
             return null;
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0a94f3783a43ea0efa7648a9788bf709846a1562
     }
 
     @Override
@@ -36,11 +42,22 @@ public class JdbcCampgroundDao implements CampgroundDao {
         String sql = "SELECT * FROM campground WHERE park_id = ? ; ";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, parkId);
 
+<<<<<<< HEAD
         while (result.next()) {
             Campground campground = mapRowToCampground(result);
             campgrounds.add(campground);
         }
             return campgrounds;
+=======
+        if (result.next()) {
+            Campground campground = mapRowToCampground(result);
+            campgrounds.add(campground);
+            return campgrounds;
+        } else {
+            return null;
+        }
+
+>>>>>>> 0a94f3783a43ea0efa7648a9788bf709846a1562
     }
 
     private Campground mapRowToCampground(SqlRowSet results) {
@@ -53,4 +70,7 @@ public class JdbcCampgroundDao implements CampgroundDao {
         campground.setDailyFee(results.getDouble("daily_fee"));
         return campground;
     }
+
+    List <Park> parks = new ArrayList<>();
+    List <Reservation> reservations;
 }

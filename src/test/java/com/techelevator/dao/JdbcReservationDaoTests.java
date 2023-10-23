@@ -9,6 +9,7 @@ import com.techelevator.model.Reservation;
 import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class JdbcReservationDaoTests extends BaseDaoTests {
 
@@ -21,7 +22,10 @@ public class JdbcReservationDaoTests extends BaseDaoTests {
 
     @Test
     public void getReservationById_Should_Return_Specific_Reservation() {
-        Assert.fail();
+        int id = 3;
+        Reservation reservation = dao.getReservationById(id);
+        assertEquals("Invalid reservation ID", id, reservation.getReservationId());
+
     }
 
     @Test
