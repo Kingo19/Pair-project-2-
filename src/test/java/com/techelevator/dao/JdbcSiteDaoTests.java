@@ -23,18 +23,20 @@ public class JdbcSiteDaoTests extends BaseDaoTests {
     @Test
     public void getSitesWithRVAccessByParkId_Should_Return_Sites_With_Positive_RV_Length() {
         int parkId = 1;
-
-
-        List<Site> sites = dao.getSitesAvailableTodayByParkId(parkId);
-        System.out.println(sites.size());
-        assertEquals("Incorrect count of site", 2, sites.size());
-        Assert.assertTrue(sites.get(1).getMaxRvLength()>0);
+        List<Site> sites = dao.getSitesWithRVAccessByParkId(parkId);
+        Assert.assertNotNull(sites);
+        Assert.assertTrue(sites.get(0).isAccessible());
+        Assert.assertTrue(sites.get(0).getSiteId() == parkId);
+//        assertEquals("Incorrect count of site", sites.size(), dao.getSitesWithRVAccessByParkId(parkId).size());
+        Assert.assertTrue(sites.get(parkId).getMaxRvLength()>0);
     }
 
     @Test
     public void getSitesAvailableTodayByParkId_Should_Return_Available_Parks() {
         List<Site> sites = dao.getSitesAvailableTodayByParkId(1);
-        assertEquals("Incorrect count of currently available sites", 0, sites.size());
+        List<Site> sites2 = dao.getSitesAvailableTodayByParkId(2);
+        assertEquals("Incorrect count of currently available sites", 0, sites2.size());
+        assertEquals("Incorrect count of currently available sites", 5, sites.size());
 
     }
 }

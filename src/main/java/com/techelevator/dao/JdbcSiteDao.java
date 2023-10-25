@@ -33,13 +33,16 @@ public class JdbcSiteDao implements SiteDao {
     @Override
     public List<Site> getSitesAvailableTodayByParkId(int parkId) {
         List<Site> sites = new ArrayList<>();
-        String sql = "SELECT s.* FROM site s " +
-                "LEFT JOIN reservation r ON s.site_id = r.site_id " +
-                "WHERE s.site_id = ? " +
-                "AND (r.from_date IS NULL OR r.from_date > ?) " +
-                "AND (r.to_date IS NULL OR r.to_date < ?)";
+        String sql = "SELECT site_id, s.campground_id, site_number, max_occupancy, accessible, max_rv_length, utilities "
+                + "FROM site s "
+                + "INNER JOIN campground c ON c.campground_id = s.campground_id "
+                + "WHERE park_id = ? "
+                + "AND site_id NOT IN ( "
+                + "SELECT site_id FROM reservation "
+                + "WHERE CURRENT_DATE <= to_date AND CURRENT_DATE >= from_date);";
+
         LocalDate today = LocalDate.now();
-        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, parkId, today, today);
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, parkId);
 
         while (result.next()) {
             Site site = mapRowToSite(result);

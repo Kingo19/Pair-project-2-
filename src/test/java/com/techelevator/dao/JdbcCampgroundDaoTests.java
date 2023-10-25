@@ -28,11 +28,12 @@ public class JdbcCampgroundDaoTests extends BaseDaoTests {
 
     @Test
     public void getCampgroundsByParkId_Should_Return_All_Campgrounds_For_Park() {
-        List<Campground> campgrounds = dao.getCampgroundsByParkId(1);
-        assertNotNull(campgrounds);
-        assertTrue(!campgrounds.isEmpty());
-
-        assertEquals("Incorrect number of campgrounds", 1, campgrounds.size());
+        List<Campground> campgrounds1 = dao.getCampgroundsByParkId(1);
+        List<Campground> campgrounds2 = dao.getCampgroundsByParkId(2);
+        assertNotNull(campgrounds1);
+        assertTrue(!campgrounds1.isEmpty());
+        assertEquals("Incorrect number of campgrounds", 2, campgrounds1.size());
+        assertEquals("Incorrect number of campgrounds", 0, campgrounds2.size());
 
     }
 
